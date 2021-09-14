@@ -6,10 +6,10 @@ RUN apt-get update -qq && \
   mariadb-server \
   mariadb-client
 
-WORKDIR /contact_book_app
+WORKDIR /picktweet
 
-COPY Gemfile /contact_book_app/Gemfile
-COPY Gemfile.lock /contact_book_app/Gemfile.lock
+COPY Gemfile /picktweet/Gemfile
+COPY Gemfile.lock /picktweet/Gemfile.lock
 
 RUN gem install bundler
 RUN bundle install

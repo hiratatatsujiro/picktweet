@@ -6,12 +6,12 @@ services:
     command: bundle exec puma -C config/puma.rb
 
     volumes:
-      - .:/contact_book_app
-      - public-data:/contact_book_app/public
-      - tmp-data:/contact_book_app/tmp
-      - log-data:/contact_book_app/log
+      - .:/picktweet
+      - public-data:/picktweet/public
+      - tmp-data:/picktweet/tmp
+      - log-data:/picktweet/log
     networks:
-      - contact_book_app-network
+      - picktweet-network
     depends_on:
       - db
 
@@ -21,24 +21,24 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-      MYSQL_DATABASE: contact_book_app_development
+      MYSQL_DATABASE: picktweet_development
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - contact_book_app-network
+      - picktweet-network
 
   web:
     build:
       context: ./nginx_docker
     volumes:
-      - public-data:/contact_book_app/public
-      - tmp-data:/contact_book_app/tmp
+      - public-data:/picktweet/public
+      - tmp-data:/picktweet/tmp
     ports:
       - "80:80" # ホストからゲストへポートフォワード
     depends_on:
       - app
     networks:
-      - contact_book_app-network
+      - picktweet-network
 
 volumes:
   public-data:
@@ -47,5 +47,5 @@ volumes:
   db-data:
 
 networks:
-  contact_book_app-network:
+  picktweet-network:
     external: true
